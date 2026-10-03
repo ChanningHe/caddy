@@ -1,0 +1,78 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    "docker:pinDigests",
+    "helpers:pinGitHubActionDigests",
+    ":semanticCommits"
+  ],
+  "automerge": true,
+  "platformAutomerge": false,
+  "postUpdateOptions": [
+    "gomodTidy"
+  ],
+  "packageRules": [
+    {
+      "description": "Refresh the whole Go module graph, not just direct deps (transitive CVE fixes land here). Weekly to keep churn sane.",
+      "matchManagers": [
+        "gomod"
+      ],
+      "matchDepTypes": [
+        "indirect"
+      ],
+      "enabled": true,
+      "groupName": "go indirect dependencies",
+      "schedule": [
+        "* 0-5 * * 1"
+      ]
+    },
+    {
+      "description": "Indirect majors are new module paths nothing imports; go mod tidy would drop them.",
+      "matchManagers": [
+        "gomod"
+      ],
+      "matchDepTypes": [
+        "indirect"
+      ],
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "enabled": false
+    },
+    {
+      "description": "The go directive is a minimum; the toolchain is pinned by the golang image.",
+      "matchManagers": [
+        "gomod"
+      ],
+      "matchDepTypes": [
+        "golang",
+        "toolchain"
+      ],
+      "enabled": false
+    },
+    {
+      "description": "Release and debug runtime bases move together.",
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchPackageNames": [
+        "gcr.io/distroless/**"
+      ],
+      "groupName": "distroless"
+    },
+    {
+      "description": "Let fresh Go releases and upstream commits (pseudo-version digests) age before they reach the binary.",
+      "matchDatasources": [
+        "go"
+      ],
+      "minimumReleaseAge": "3 days"
+    },
+    {
+      "description": "Major bumps need a human.",
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "automerge": false
+    }
+  ]
+}

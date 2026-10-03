@@ -1,0 +1,125 @@
+name: build
+
+on:
+  push:
+    branches: [main]
+    paths-ignore: ["**.md"]
+  pull_request:
+    paths-ignore: ["**.md"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  IMAGE: ghcr.io/channinghe/caddy
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        variant: [full, lite]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
+
+      - name: govulncheck
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
+        with:
+          context: .
+          target: vulncheck
+          build-args: VARIANT=${{ matrix.variant }}
+          cache-from: type=gha,scope=${{ matrix.variant }}
+
+      - name: Build test image
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
+        with:
+          context: .
+          build-args: VARIANT=${{ matrix.variant }}
+          tags: caddy-test:${{ matrix.variant }}
+          load: true
+          cache-from: type=gha,scope=${{ matrix.variant }}
+          cache-to: type=gha,scope=${{ matrix.variant }},mode=max
+
+      - name: Test
+        run: test/run.sh ${{ matrix.variant }} caddy-test:${{ matrix.variant }}
+
+  publish:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: test
+    runs-on: ubuntu-24.04
+    # Serialize publishes so an older commit can never overwrite `latest` after a newer one.
+    concurrency:
+      group: publish-${{ matrix.variant }}-${{ matrix.flavor }}
+      cancel-in-progress: false
+    permissions:
+      contents: read
+      packages: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { variant: full, flavor: release, suffix: "" }
+          - { variant: full, flavor: debug, suffix: "-debug" }
+          - { variant: lite, flavor: release, suffix: "-lite" }
+          - { variant: lite, flavor: debug, suffix: "-lite-debug" }
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Read Caddy version
+        id: caddy
+        run: |
+          version=$(awk '$1 == "github.com/caddyserver/caddy/v2" { print $2 }' variants/${{ matrix.variant }}/go.mod)
+          [ -n "$version" ] || { echo "caddy not found in go.mod" >&2; exit 1; }
+          echo "version=${version#v}" >> "$GITHUB_OUTPUT"
+
+      - id: meta
+        env:
+          DOCKER_METADATA_ANNOTATIONS_LEVELS: manifest,index
+        uses: docker/metadata-action@dc802804100637a589fabce1cb79ff13a1411302 # v6.2.0
+        with:
+          images: ${{ env.IMAGE }}
+          flavor: |
+            latest=false
+            suffix=${{ matrix.suffix }},onlatest=true
+          tags: |
+            type=raw,value=latest
+            type=semver,pattern={{version}},value=${{ steps.caddy.outputs.version }}
+            type=semver,pattern={{major}}.{{minor}},value=${{ steps.caddy.outputs.version }}
+            type=semver,pattern={{major}},value=${{ steps.caddy.outputs.version }}
+            type=sha
+
+      - uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
+
+      - uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # No QEMU needed: Go cross-compiles on the build platform and the
+      # runtime stages contain no RUN instructions.
+      - uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          build-args: |
+            VARIANT=${{ matrix.variant }}
+            FLAVOR=${{ matrix.flavor }}
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          annotations: ${{ steps.meta.outputs.annotations }}
+          sbom: true
+          provenance: mode=max
+          cache-from: |
+            type=gha,scope=${{ matrix.variant }}
+            type=gha,scope=${{ matrix.variant }}-${{ matrix.flavor }}
+          cache-to: type=gha,scope=${{ matrix.variant }}-${{ matrix.flavor }},mode=max

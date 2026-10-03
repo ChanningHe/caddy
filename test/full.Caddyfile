@@ -1,0 +1,47 @@
+{
+	http_port 8080
+	https_port 8443
+	cache {
+		otter
+	}
+	crowdsec {
+		api_url http://127.0.0.1:65000
+		api_key test-key
+	}
+	servers {
+		trusted_proxies combine {
+			cloudflare
+			static private_ranges
+		}
+	}
+	layer4 {
+		127.0.0.1:5353 {
+			@blocked not crowdsec
+			route @blocked {
+				close
+			}
+			route {
+				proxy 127.0.0.1:53
+			}
+		}
+	}
+}
+
+example.com {
+	tls {
+		dns cloudflare {env.CF_API_TOKEN}
+	}
+	log {
+		format transform "{common_log}"
+	}
+	route {
+		crowdsec
+		request_id
+		defender block {
+			ranges private
+		}
+		hmac sha256 test-secret
+		cache
+		webdav
+	}
+}

@@ -1,0 +1,11 @@
+# Default config. The image runs as non-root, so Caddy listens on unprivileged
+# ports; map host 80/443 to container 8080/8443. Keep these global options in
+# your own Caddyfile so ACME HTTP/TLS-ALPN challenges keep working.
+{
+	http_port 8080
+	https_port 8443
+}
+
+:8080 {
+	respond "Caddy is running" 200
+}

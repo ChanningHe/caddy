@@ -1,0 +1,33 @@
+{
+	http_port 8080
+	https_port 8443
+	servers {
+		trusted_proxies combine {
+			static private_ranges
+		}
+	}
+	layer4 {
+		127.0.0.1:5353 {
+			route {
+				proxy 127.0.0.1:53
+			}
+		}
+	}
+}
+
+example.com {
+	tls {
+		dns cloudflare {env.CF_API_TOKEN}
+	}
+	log {
+		format transform "{common_log}"
+	}
+	route {
+		request_id
+		defender block {
+			ranges private
+		}
+		hmac sha256 test-secret
+		respond "ok"
+	}
+}
