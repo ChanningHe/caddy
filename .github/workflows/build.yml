@@ -20,7 +20,7 @@ env:
 
 jobs:
   test:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     strategy:
       fail-fast: false
       matrix:
@@ -54,7 +54,7 @@ jobs:
   publish:
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     needs: test
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     # Serialize publishes so an older commit can never overwrite `latest` after a newer one.
     concurrency:
       group: publish-${{ matrix.variant }}-${{ matrix.flavor }}
