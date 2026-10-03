@@ -10,7 +10,7 @@ require (
 	github.com/caddyserver/caddy/v2 v2.11.6
 	github.com/caddyserver/transform-encoder v0.0.0-20260423033309-ba4124974830
 	github.com/darkweak/storages/otter/caddy v0.0.20
-	github.com/ewen-lbh/caddy-i18n v0.1.2
+	github.com/ewen-lbh/caddy-i18n v0.8.2
 	github.com/fvbommel/caddy-combine-ip-ranges v0.0.1
 	github.com/hslatman/caddy-crowdsec-bouncer v0.14.2-0.20260909201224-ffdcb7c6f861
 	github.com/lolPants/caddy-requestid v1.1.2

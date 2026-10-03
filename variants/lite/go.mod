@@ -7,7 +7,7 @@ require (
 	github.com/caddy-dns/cloudflare v0.2.4
 	github.com/caddyserver/caddy/v2 v2.11.6
 	github.com/caddyserver/transform-encoder v0.0.0-20260423033309-ba4124974830
-	github.com/ewen-lbh/caddy-i18n v0.1.2
+	github.com/ewen-lbh/caddy-i18n v0.8.2
 	github.com/fvbommel/caddy-combine-ip-ranges v0.0.1
 	github.com/lolPants/caddy-requestid v1.1.2
 	github.com/mholt/caddy-l4 v0.1.2

@@ -321,8 +321,8 @@ github.com/edsrzf/mmap-go v1.0.0/go.mod h1:YO35OhQPt3KJa3ryjFM5Bs14WD66h8eGKpfaB
 github.com/envoyproxy/go-control-plane v0.6.9/go.mod h1:SBwIajubJHhxtWwsL9s8ss4safvEdbitLhGGK48rN6g=
 github.com/envoyproxy/go-control-plane v0.9.1-0.20191026205805-5f8ba28d4473/go.mod h1:YTl/9mNaCwkRvm6d1a2C3ymFceY/DCBVvsKhRF0iEA4=
 github.com/envoyproxy/protoc-gen-validate v0.1.0/go.mod h1:iSmxcyjqTsJpI2R4NaDN7+kN2VEUnK/pcBlmesArF7c=
-github.com/ewen-lbh/caddy-i18n v0.1.2 h1:TOhNx7IwmjB9/CPNkGfneZwU6aNcr9TL/8j6knCKDVw=
-github.com/ewen-lbh/caddy-i18n v0.1.2/go.mod h1:Nua0haDMoqWWRXdh/5gQ/58jRvEbnBRf6qcbFmgeq8w=
+github.com/ewen-lbh/caddy-i18n v0.8.2 h1:3Uf5CA9V5bMt4FmbuDr6qZo2ATLglbF5Ipvu/DYrSdA=
+github.com/ewen-lbh/caddy-i18n v0.8.2/go.mod h1:Nua0haDMoqWWRXdh/5gQ/58jRvEbnBRf6qcbFmgeq8w=
 github.com/fatih/color v1.6.0/go.mod h1:Zm6kSWBoL9eyXnKyktHP6abPY2pDugNf5KwzbycvMj4=
 github.com/fatih/color v1.7.0/go.mod h1:Zm6kSWBoL9eyXnKyktHP6abPY2pDugNf5KwzbycvMj4=
 github.com/fatih/color v1.8.0/go.mod h1:3l45GVGkyrnYNl9HoIjnp2NnNWvh6hLAqD8yTfGjnw8=
