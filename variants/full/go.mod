@@ -7,7 +7,7 @@ require (
 	github.com/abiosoft/caddy-hmac v0.0.0-20210522205451-976ca0a419ef
 	github.com/caddy-dns/cloudflare v0.2.4
 	github.com/caddyserver/cache-handler v0.17.0
-	github.com/caddyserver/caddy/v2 v2.11.6
+	github.com/caddyserver/caddy/v2 v2.11.7
 	github.com/caddyserver/transform-encoder v0.0.0-20260423033309-ba4124974830
 	github.com/darkweak/storages/otter/caddy v0.0.20
 	github.com/ewen-lbh/caddy-i18n v0.8.2
@@ -75,6 +75,7 @@ require (
 	github.com/docker/go-units v0.5.0 // indirect
 	github.com/dolthub/maphash v0.1.0 // indirect
 	github.com/dunglas/go-urlpattern v1.0.0 // indirect
+	github.com/dunglas/httpsfv v1.1.1 // indirect
 	github.com/dustin/go-humanize v1.1.0 // indirect
 	github.com/ebitengine/purego v0.11.1 // indirect
 	github.com/felixge/httpsnoop v1.1.0 // indirect

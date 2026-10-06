@@ -5,7 +5,7 @@ go 1.27.1
 require (
 	github.com/abiosoft/caddy-hmac v0.0.0-20210522205451-976ca0a419ef
 	github.com/caddy-dns/cloudflare v0.2.4
-	github.com/caddyserver/caddy/v2 v2.11.6
+	github.com/caddyserver/caddy/v2 v2.11.7
 	github.com/caddyserver/transform-encoder v0.0.0-20260423033309-ba4124974830
 	github.com/ewen-lbh/caddy-i18n v0.8.2
 	github.com/fvbommel/caddy-combine-ip-ranges v0.0.1
@@ -56,6 +56,7 @@ require (
 	github.com/dgryski/go-farm v0.0.0-20240924180020-3414d57e47da // indirect
 	github.com/dlclark/regexp2/v2 v2.8.1 // indirect
 	github.com/dunglas/go-urlpattern v1.0.0 // indirect
+	github.com/dunglas/httpsfv v1.1.1 // indirect
 	github.com/dustin/go-humanize v1.1.0 // indirect
 	github.com/felixge/httpsnoop v1.1.0 // indirect
 	github.com/fsnotify/fsnotify v1.10.1 // indirect
