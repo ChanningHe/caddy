@@ -40,6 +40,19 @@
       "enabled": false
     },
     {
+      "description": "Indirect pseudo-versions follow their direct parent via go mod tidy; Renovate would track the default branch, which may be the wrong branch (e.g. smallstep/go-attestation pins a commit on `surrogate`).",
+      "matchManagers": [
+        "gomod"
+      ],
+      "matchDepTypes": [
+        "indirect"
+      ],
+      "matchUpdateTypes": [
+        "digest"
+      ],
+      "enabled": false
+    },
+    {
       "description": "The go directive is a minimum; the toolchain is pinned by the golang image.",
       "matchManagers": [
         "gomod"
