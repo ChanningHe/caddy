@@ -18,7 +18,7 @@ require (
 	github.com/mholt/caddy-l4 v0.1.2
 	github.com/mholt/caddy-webdav v0.0.0-20260127042217-fa2f366b0d75
 	github.com/porech/caddy-maxmind-geolocation v1.0.3
-	pkg.jsn.cam/caddy-defender v0.10.1
+	pkg.jsn.cam/caddy-defender v0.10.2
 )
 
 require (
