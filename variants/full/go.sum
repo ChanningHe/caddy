@@ -1683,8 +1683,8 @@ mvdan.cc/unparam v0.0.0-20190720180237-d51796306d8f/go.mod h1:4G1h5nDURzA3bwVMZI
 mvdan.cc/unparam v0.0.0-20191111180625-960b1ec0f2c2/go.mod h1:rCqoQrfAmpTX/h2APczwM7UymU/uvaOluiVPIYCSY/k=
 pgregory.net/rapid v1.2.0 h1:keKAYRcjm+e1F0oAuU5F5+YPAWcyxNNRK2wud503Gnk=
 pgregory.net/rapid v1.2.0/go.mod h1:PY5XlDGj0+V1FCq0o192FdRhpKHGTRIWBgqjDBTrq04=
-pkg.jsn.cam/caddy-defender v0.10.1 h1:je1oXmssyn/kNqkuXVhhJJOHJ4Ffc4mjhUJ3DU7N/2k=
-pkg.jsn.cam/caddy-defender v0.10.1/go.mod h1:SCqrCjy+7RuZL32gDCzb/yRQ/AXIZ5USmTSpmJ4oXfs=
+pkg.jsn.cam/caddy-defender v0.10.2 h1:XM8npAYtC6k5FPesm6DJKmWmksF2IVfzVPh7Z80DL9Q=
+pkg.jsn.cam/caddy-defender v0.10.2/go.mod h1:P4tAUw1VEHL8ItwNjo1RU19XlKdLQuK/lE7zlcF2U40=
 rsc.io/binaryregexp v0.2.0/go.mod h1:qTv7/COck+e2FymRvadv62gMdZztPaShugOCi3I+8D8=
 sigs.k8s.io/yaml v1.1.0/go.mod h1:UJmg0vDUVViEyp3mgSv9WPwZCDxu4rQW1olrI1uml+o=
 sourcegraph.com/sourcegraph/appdash v0.0.0-20190731080439-ebfcffb1b5c0/go.mod h1:hI742Nqp5OhwiqlzhgfbWU4mW4yO10fP+LoT9WOswdU=
