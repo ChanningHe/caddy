@@ -9,7 +9,7 @@ require (
 	github.com/caddyserver/cache-handler v0.17.0
 	github.com/caddyserver/caddy/v2 v2.11.7
 	github.com/caddyserver/transform-encoder v0.0.0-20260423033309-ba4124974830
-	github.com/darkweak/storages/otter/caddy v0.0.20
+	github.com/darkweak/storages/otter/caddy v0.0.22
 	github.com/ewen-lbh/caddy-i18n v0.8.2
 	github.com/fvbommel/caddy-combine-ip-ranges v0.0.1
 	github.com/hslatman/caddy-crowdsec-bouncer v0.14.2-0.20260909201224-ffdcb7c6f861
@@ -61,8 +61,8 @@ require (
 	github.com/crowdsecurity/crowdsec v1.8.1 // indirect
 	github.com/crowdsecurity/go-cs-lib v0.0.25 // indirect
 	github.com/darkweak/souin v1.7.9 // indirect
-	github.com/darkweak/storages/core v0.0.20 // indirect
-	github.com/darkweak/storages/otter v0.0.20 // indirect
+	github.com/darkweak/storages/core v0.0.21 // indirect
+	github.com/darkweak/storages/otter v0.0.21 // indirect
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
 	github.com/deckarep/golang-set v1.8.0 // indirect
 	github.com/dgraph-io/badger v1.6.2 // indirect
