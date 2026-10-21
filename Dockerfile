@@ -27,8 +27,8 @@ RUN --mount=type=cache,target=/go/pkg/mod \
     --mount=type=cache,target=/root/.cache/go-build \
     go -C /tools tool govulncheck -C /src ./...
 
-FROM gcr.io/distroless/static-debian13:nonroot@sha256:516757106de35205efb70b91ba03f6f1298424a0678c603255cf2852a7000087 AS base-release
-FROM gcr.io/distroless/static-debian13:debug-nonroot@sha256:95edb51e0d0fc20b21e50ddcf747338172aea87874f66a6a6bce1275367ccdc1 AS base-debug
+FROM gcr.io/distroless/static-debian13:nonroot@sha256:d62067879de890a1def9da0e7766b7d20810a5e5555cef8506b752437d7a3e88 AS base-release
+FROM gcr.io/distroless/static-debian13:debug-nonroot@sha256:06bfc1ed6f52f8efecd4e68e5f146fc06891b1c40f2d1654f1518392ba89815a AS base-debug
 
 FROM base-${FLAVOR}
 COPY --from=build /out/usr/bin/caddy /usr/bin/caddy
