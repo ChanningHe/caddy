@@ -37,8 +37,19 @@ Version tags follow the bundled Caddy version and are re-pushed when plugins cha
 
 ## Usage
 
-The process is non-root, so Caddy listens on **8080/8443**. Map host ports and keep the
-`http_port`/`https_port` global options in your Caddyfile (ACME challenges depend on them):
+The process runs as uid `65532`. Linux only lets non-root processes bind ports at or above
+`net.ipv4.ip_unprivileged_port_start` (default `1024`), so how you expose 80/443 depends on
+the network mode.
+
+| Network mode | Caddy listens on | Sysctl needed |
+|---|---|---|
+| Bridge + port mapping (default) | 8080/8443 | No |
+| `network_mode: host` | 80/443 | **Yes, on the host** |
+
+### Bridge network (default)
+
+Map host ports to 8080/8443 and keep the `http_port`/`https_port` global options in your
+Caddyfile (ACME challenges depend on them):
 
 ```caddyfile
 {
@@ -67,6 +78,40 @@ volumes:
 
 Bind-mounted host directories for `/data` and `/config` must be writable by uid `65532`.
 
+### Host network
+
+With `network_mode: host` the container shares the host's network namespace and inherits
+the host's `ip_unprivileged_port_start` (`1024`), so binding 80/443 fails with
+`bind: permission denied`. Lower it on the host:
+
+```sh
+echo 'net.ipv4.ip_unprivileged_port_start = 80' | sudo tee /etc/sysctl.d/99-unprivileged-ports.conf
+sudo sysctl --system
+```
+
+Then drop the `http_port`/`https_port` overrides (Caddy defaults to 80/443) and remove `ports:`:
+
+```yaml
+services:
+  caddy:
+    image: ghcr.io/channinghe/caddy:latest
+    network_mode: host
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+```
+
+Notes:
+
+- The setting is host-wide: any non-root process on the host can then bind ports 80–1023.
+- Ports below 80, such as a layer4 listener on 53, need a lower value.
+- Compose `sysctls:` cannot be used with `network_mode: host`; set it on the host.
+- Bridge mode needs none of this: Docker already sets the value to `0` inside the container's
+  own network namespace.
+- Kubernetes: set it per pod via `securityContext.sysctls` (a safe sysctl), or on the node
+  when using `hostNetwork: true`.
+
 ### docker-proxy (full only)
 
 The default command is `caddy run`. To generate sites from container labels, override the
@@ -94,24 +139,3 @@ GeoLite2 databases cannot be redistributed; mount your own `.mmdb` and point `db
     healthcheck:
       test: ["CMD", "wget", "-qO-", "http://127.0.0.1:8080/"]
 ```
-
-## Development
-
-```
-variants/{full,lite}/   main.go + go.mod/go.sum per variant (one source of truth for plugins)
-tools/                  pinned govulncheck (go tool)
-test/                   expected modules, plugin Caddyfiles, run.sh
-```
-
-Add a plugin: add the blank import to `variants/<v>/main.go`, run `go mod tidy` in that
-directory with the same Go version as the Dockerfile, and list its module ID in `test/<v>.modules`.
-
-```sh
-docker buildx build --build-arg VARIANT=full --target vulncheck .   # govulncheck
-docker buildx build --build-arg VARIANT=full -t caddy:full --load .
-test/run.sh full caddy:full
-```
-
-CI (`.github/workflows/build.yml`): every PR runs govulncheck and `test/run.sh` for both
-variants; pushes to `main` build and push all four images. Renovate automerges once CI is
-green (majors excluded); indirect Go deps are batched weekly.
