@@ -614,8 +614,8 @@ github.com/hashicorp/serf v0.8.2/go.mod h1:6hOLApaqBFA1NXqRQAsxw9QxuDEvNxSQRwA/J
 github.com/hexops/gotextdiff v1.0.3 h1:gitA9+qJrrTCsiCl7+kh75nPqQt1cx4ZkudSTLoUqJM=
 github.com/hexops/gotextdiff v1.0.3/go.mod h1:pSWU5MAI3yDq+fZBTazCSJysOMbxWL1BSow5/V2vxeg=
 github.com/hpcloud/tail v1.0.0/go.mod h1:ab1qPbhIpdTxEkNHXyeSf5vhxWSCs/tWer42PpOxQnU=
-github.com/hslatman/caddy-crowdsec-bouncer v0.14.2-0.20260909201224-ffdcb7c6f861 h1:M6mg/LIlrTjVcJGsQ4iSBenA87rF/aLtpcQ7OEkLUvM=
-github.com/hslatman/caddy-crowdsec-bouncer v0.14.2-0.20260909201224-ffdcb7c6f861/go.mod h1:0QJgHzzInfO7dOUcLdBr7HbsvzykByeFgsg4z8KWhAs=
+github.com/hslatman/caddy-crowdsec-bouncer v0.15.0 h1:jjYR1YpbI/FOFOdQEF+EfeubI0VZIg7dbd9gfVgAGAQ=
+github.com/hslatman/caddy-crowdsec-bouncer v0.15.0/go.mod h1:g+bQYq1OoKHBj5Bk0iP+8P8c4+03NH2py7SgoMmtY9M=
 github.com/hslatman/ipstore v0.5.0 h1:pFbh8OKWOCttHwMvjtF9O02vPKI5HSHlhRk5hlO82rk=
 github.com/hslatman/ipstore v0.5.0/go.mod h1:IauyP66Q5kk1mfjysfAfa2Y4AnN7tFLYJlYHhkPlEPY=
 github.com/huandu/xstrings v1.3.1/go.mod h1:y5/lhBue+AyNmUVz9RLU9xbLR0o4KIIExikq4ovT0aE=
