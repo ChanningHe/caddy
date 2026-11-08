@@ -5,7 +5,7 @@ go 1.27.3
 require (
 	github.com/abiosoft/caddy-hmac v0.0.0-20210522205451-976ca0a419ef
 	github.com/caddy-dns/cloudflare v0.2.4
-	github.com/caddyserver/caddy/v2 v2.11.8
+	github.com/caddyserver/caddy/v2 v2.11.9
 	github.com/caddyserver/transform-encoder v0.0.0-20260423033309-ba4124974830
 	github.com/ewen-lbh/caddy-i18n v0.8.2
 	github.com/fvbommel/caddy-combine-ip-ranges v0.0.1
