@@ -10,7 +10,7 @@ require (
 	github.com/ewen-lbh/caddy-i18n v0.8.2
 	github.com/fvbommel/caddy-combine-ip-ranges v0.0.1
 	github.com/lolPants/caddy-requestid v1.1.2
-	github.com/mholt/caddy-l4 v0.1.2
+	github.com/mholt/caddy-l4 v0.1.3
 	github.com/porech/caddy-maxmind-geolocation v1.0.3
 	pkg.jsn.cam/caddy-defender v0.10.2
 )
@@ -135,6 +135,7 @@ require (
 	github.com/things-go/go-socks5 v0.1.4 // indirect
 	github.com/urfave/cli v1.22.17 // indirect
 	github.com/viccon/sturdyc v1.1.6 // indirect
+	github.com/vnxme/hybrid v0.1.1 // indirect
 	github.com/x448/float16 v0.8.4 // indirect
 	github.com/yuin/goldmark v1.8.7 // indirect
 	github.com/yuin/goldmark-highlighting/v2 v2.0.0-20230729083705-37449abec8cc // indirect
